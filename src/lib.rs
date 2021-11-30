@@ -30,6 +30,24 @@ impl Galois {
     pub fn inv(self) -> Self {
         Galois::identity() / self
     }
+
+    pub fn exp(self, n: u32) -> Self {
+        if n == 0 {
+            return Galois::identity();
+        }
+
+        if self == Galois::zero() {
+            return self;
+        }
+
+        let log_a = LOG_TABLE[self.0 as usize] as u32;
+        let mut log_res = log_a * n;
+        while log_res >= 255 {
+            log_res -= 255;
+        }
+
+        EXP_TABLE[log_res as usize]
+    }
 }
 
 impl Add for Galois {
