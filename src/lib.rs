@@ -1,15 +1,8 @@
 use std::fmt;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
-use lazy_static::lazy_static;
-
-lazy_static! {
-    static ref LOG_TABLE: [u8; 256] = gen_log_table();
-    static ref EXP_TABLE: [Galois; 256] = gen_exp_table();
-}
-
-const PRIMITIVE_POLYNOMIAL: usize = 0b100011101;
-const FIELD_SIZE: usize = 1 << 8;
+mod constants;
+use constants::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct Galois(u8);
@@ -150,7 +143,7 @@ impl From<Galois> for u8 {
     }
 }
 
-fn gen_exp_table() -> [Galois; 256] {
+pub fn gen_exp_table() -> [Galois; 256] {
     let mut exps = [Galois::zero(); 256];
     exps[0] = Galois(1); // x ^ 0 = 1
 
@@ -169,7 +162,7 @@ fn gen_exp_table() -> [Galois; 256] {
     exps
 }
 
-fn gen_log_table() -> [u8; 256] {
+pub fn gen_log_table() -> [u8; 256] {
     let exp_tables = gen_exp_table();
 
     let mut logs = [0u8; 256];
@@ -235,6 +228,8 @@ mod tests {
 
     #[test]
     fn test_logs_eq() {
+        assert_eq!(LOG_TABLE, gen_log_table());
+
         let logs: [u8; 255] = [
             0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100, 224, 14, 52, 141,
             239, 129, 28, 193, 105, 248, 200, 8, 76, 113, 5, 138, 101, 47, 225, 36, 15, 33, 53,
@@ -259,6 +254,7 @@ mod tests {
 
     #[test]
     fn test_pow_eq() {
+        assert_eq!(EXP_TABLE, gen_exp_table());
         let exps: [i8; 255] = [
             1, 2, 4, 8, 16, 32, 64, -128, 29, 58, 116, -24, -51, -121, 19, 38, 76, -104, 45, 90,
             -76, 117, -22, -55, -113, 3, 6, 12, 24, 48, 96, -64, -99, 39, 78, -100, 37, 74, -108,
