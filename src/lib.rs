@@ -127,7 +127,7 @@ impl DivAssign for Galois {
 
 impl fmt::Display for Galois {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "Galois({})", self.0)
     }
 }
 
