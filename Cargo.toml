@@ -3,6 +3,10 @@ name = "gf256-lite"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+repository = "https://github.com/qy3u/gf256-lite"
+homepage = "https://github.com/qy3u/gf256-lite"
+documentation = "https://github.com/qy3u/gf256-lite"
+description = "A lite implemention for 8-bit Galois Field"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
