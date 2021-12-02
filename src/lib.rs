@@ -11,7 +11,7 @@ lazy_static! {
 const PRIMITIVE_POLYNOMIAL: usize = 0b100011101;
 const FIELD_SIZE: usize = 1 << 8;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct Galois(u8);
 
 impl Galois {
